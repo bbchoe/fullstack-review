@@ -4,25 +4,43 @@ import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
 
+const serverURL = 'http://localhost:1128'
+
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       repos: []
     }
 
   }
 
   search (term) {
-    console.log(`${term} was searched`);
-    // TODO
+    console.log(`${term} was searched`)
+    let gitUser = JSON.stringify({ githubUsername : term })
+    console.log(gitUser, typeof gitUser)
+
+    // SEND $.AJAX POST REQUEST TO SERVER FOR SEARCH TERM
+    let options = {
+      method: 'POST',
+      url: serverURL + '/repos',
+      contentType: 'application/json',
+      data: gitUser,
+      success: (data, statusText, jqXHR) => {
+        console.log('POST REQUEST - SEND SUCCESSFUL: ', statusText)
+      },
+      error: (jqXHR, statusText, errorThrown) => {
+        console.log('POST REQUEST SEND FAILED: ', statusText)
+      }
+    }
+    $.ajax(options)
   }
 
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
-      <Search onSearch={this.search.bind(this)}/>
+      <Search onSearch={this.search}/>
     </div>)
   }
 }
