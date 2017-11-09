@@ -2,7 +2,7 @@ const request = require('request');
 const config = require('../config.js');
 const watch = require('./watch.js')
 
-let getReposByUsername = (username) => {
+let getReposByUsername = (username, callback) => {
   // Use the request module to request repos for a specific
   // user from the github API
 
@@ -30,7 +30,8 @@ let getReposByUsername = (username) => {
     watch('body.incomplete_results', body.incomplete_results)
     watch('body.items.length', body.items.length)
     watch('body.items[0]', body.items[0])
-    console.log(body.items[0])
+    console.log('body.items[0] ', body.items[0])
+    callback(body.items)
   })
 }
 

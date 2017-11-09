@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const helpers = require('../helpers/github.js')
 
+
 let app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
@@ -14,10 +15,13 @@ app.post('/repos', function (req, res) {
   // save the repo information in the database
   console.log('SERVING POST REQUEST FROM ', req.body)
   console.log(typeof req.body)
-  helpers.getReposByUsername(req.body.githubUsername, () => {
+  helpers.getReposByUsername(req.body.githubUsername, (repoArray) => {
     // callback function takes in an array of repos
     // iterates through each repo and saves to database
-
+    repoArray.forEach((repo) => {
+      console.log('REPO.NAME ', repo.name)
+      console.log('REPO.FULL_NAME ', repo.full_name)
+    })
   })
 });
 
