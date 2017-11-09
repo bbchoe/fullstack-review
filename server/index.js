@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const helpers = require('../helpers/github.js')
-
+const db = require('../database/index.js')
 
 let app = express();
 
@@ -21,6 +21,7 @@ app.post('/repos', function (req, res) {
     repoArray.forEach((repo) => {
       console.log('REPO.NAME ', repo.name)
       console.log('REPO.FULL_NAME ', repo.full_name)
+      db.save(repo)
     })
   })
 });
