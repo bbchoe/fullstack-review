@@ -14,21 +14,25 @@ app.post('/repos', function (req, res) {
   // and get the repo information from the github API, then
   // save the repo information in the database
   console.log('SERVING POST REQUEST FROM ', req.body)
-  console.log(typeof req.body)
   helpers.getReposByUsername(req.body.githubUsername, (repoArray) => {
     // callback function takes in an array of repos
     // iterates through each repo and saves to database
     repoArray.forEach((repo) => {
-      console.log('REPO.NAME ', repo.name)
-      console.log('REPO.FULL_NAME ', repo.full_name)
       db.save(repo)
     })
   })
 });
 
 app.get('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should send back the top 25 repos
+  // This route should send back the top 25 repos based on the number of forks
+  console.log('SERVING GET REQUEST FROM ', req.body)
+  db.retrieve((err, results) => {
+    if (err) {
+      console.log('there was an error ', err)
+    } else {
+      console.log('results ', results)
+    }
+  })
 });
 
 let port = 1128;

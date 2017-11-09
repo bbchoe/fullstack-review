@@ -12,7 +12,23 @@ class App extends React.Component {
     this.state = {
       repos: []
     }
+  }
 
+  getFreshList() {
+    console.log('IN GETFRESH')
+    let options = {
+      method: 'GET',
+      url: serverURL + '/repos',
+      contentType: 'application/json',
+      error: (jqXHR, statusText, errorThrown) => {
+        console.log('GET REQUEST FAILED: ', statusText)
+      },
+      success: (data, statusText,jqXHR) => {
+        console.log('SUCCESSFULLY SENDING GET REQUESTS')
+      }
+    }
+    $.ajax(options)
+    // this.setState( repos: freshTop25repos )
   }
 
   search (term) {
@@ -34,6 +50,11 @@ class App extends React.Component {
       }
     }
     $.ajax(options)
+  }
+
+  componentWillMount() {
+    console.log('RETRIEVING TOP 25 REPOS')
+    this.getFreshList()
   }
 
   render () {

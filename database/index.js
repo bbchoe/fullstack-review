@@ -33,4 +33,13 @@ let saveToDb = (repo) => {
   })
 }
 
-module.exports.save = saveToDb;
+let retrieveFromDb = (callback) => {
+  // Retrieve top 25 most forked repos listed in the database
+  let queryParameters = [
+    { $sort: { fork: -1 } },
+    { $limit: 25 }]
+  Repo.aggregate(queryParameters, callback)
+}
+
+module.exports.retrieve = retrieveFromDb
+module.exports.save = saveToDb
