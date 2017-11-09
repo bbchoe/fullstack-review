@@ -14,7 +14,11 @@ app.post('/repos', function (req, res) {
   // save the repo information in the database
   console.log('SERVING POST REQUEST FROM ', req.body)
   console.log(typeof req.body)
-  helpers.getReposByUsername(req.body.githubUsername)
+  helpers.getReposByUsername(req.body.githubUsername, () => {
+    // callback function takes in an array of repos
+    // iterates through each repo and saves to database
+
+  })
 });
 
 app.get('/repos', function (req, res) {

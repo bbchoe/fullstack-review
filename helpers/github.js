@@ -1,5 +1,6 @@
 const request = require('request');
 const config = require('../config.js');
+const watch = require('./watch.js')
 
 let getReposByUsername = (username) => {
   // Use the request module to request repos for a specific
@@ -23,7 +24,13 @@ let getReposByUsername = (username) => {
   request(options, (err, response, body) => {
     console.log('ERR ', err)
     console.log('RESPONSE ', response.statusCode);
-    console.log('body: ', JSON.parse(body));
+    // console.log('body: ', JSON.parse(body));
+    var body = JSON.parse(body)
+    watch('body.total_count', body.total_count)
+    watch('body.incomplete_results', body.incomplete_results)
+    watch('body.items.length', body.items.length)
+    watch('body.items[0]', body.items[0])
+    console.log(body.items[0])
   })
 }
 
