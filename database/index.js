@@ -36,7 +36,7 @@ let saveToDb = (repo) => {
 let retrieveFromDb = (callback) => {
   // Retrieve top 25 most forked repos listed in the database
   let queryParameters = [
-    { $sort: { fork: -1 } },
+    { $sort: { forks: -1 } },
     { $limit: 25 }]
   Repo.aggregate(queryParameters, callback)
 }

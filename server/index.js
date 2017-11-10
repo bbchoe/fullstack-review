@@ -31,7 +31,6 @@ app.get('/repos', function (req, res) {
     if (err) {
       console.log('there was an error serving GET request', err)
     } else {
-      console.log('results ', results)
       res.send(results)
     }
   })

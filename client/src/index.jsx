@@ -51,6 +51,8 @@ class App extends React.Component {
       }
     }
     $.ajax(options)
+    .done(this.getFreshList)
+    // there's an issue the this binding
   }
 
   componentWillMount() {
