@@ -25,10 +25,11 @@ class App extends React.Component {
       },
       success: (data, statusText,jqXHR) => {
         console.log('SUCCESSFULLY SENDING GET REQUESTS')
+        console.log(data);
+        this.setState( { repos: data } )
       }
     }
     $.ajax(options)
-    // this.setState( repos: freshTop25repos )
   }
 
   search (term) {

@@ -21,6 +21,7 @@ app.post('/repos', function (req, res) {
       db.save(repo)
     })
   })
+  res.send('post received')
 });
 
 app.get('/repos', function (req, res) {
@@ -28,9 +29,10 @@ app.get('/repos', function (req, res) {
   console.log('SERVING GET REQUEST FROM ', req.body)
   db.retrieve((err, results) => {
     if (err) {
-      console.log('there was an error ', err)
+      console.log('there was an error serving GET request', err)
     } else {
       console.log('results ', results)
+      res.send(results)
     }
   })
 });
